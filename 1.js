@@ -29,7 +29,80 @@ var vk_ads = document.getElementById("vk_ads_1208");if(vk_ads){$('#vk_ads_1208')
 		textload(bot[0],bot[0],'Бот катает за вас');
 		$('#AUTOBOT')[0].onmouseover= function(){$('#AUTOBOT')[0].style.color='white';};
 		$('#AUTOBOT')[0].onmouseout= function(){$('#AUTOBOT')[0].style.color='red';};
-		$('#AUTOBOT')[0].style.cursor='pointer';$('#AUTOBOT')[0].style.position='absolute';$('#AUTOBOT')[0].style.fontSize=40;$('#AUTOBOT')[0].style.color='red';$('#AUTOBOT')[0].style.left=760/2-200+'px';$('#AUTOBOT')[0].style.top='140px';$('#AUTOBOT')[0].onclick=function(){var yesAU = confirm('Запустить автобота?');if(yesAU==1){drawPage('race');PLAY_AUTO();if(SBOT==false)STOPBOT();}else{}};
+		$('#AUTOBOT')[0].style.cursor='pointer';$('#AUTOBOT')[0].style.position='absolute';$('#AUTOBOT')[0].style.fontSize=40;$('#AUTOBOT')[0].style.color='red';$('#AUTOBOT')[0].style.left=760/2-200+'px';$('#AUTOBOT')[0].style.top='140px';$('#AUTOBOT')[0].onclick=function(){
+			var yesAU = confirm('Запустить автобота?');if(yesAU==1){drawPage('race');
+AUTO = {
+    win1 : user.allWin,
+    lose1 : user.allLose,
+    intervalID1 : 1,
+    intervalID2 : 1,
+    intervalID3 : 1,
+	intervalID4 : 1,
+	fritndG : confirm('Газовать со своими? (можно будет изменять без остановки)\n( ОК - Да | ОТМЕНА - Нет )'),
+	bot : function(){generateCarForBot = function(ownCar){raceWithFriend=false;var botCar = JSON.parse(JSON.stringify(ownCar));var easy = true;botCar.tires=-getRandomInt(110, 111112);botCar.engine=-getRandomInt(110, 111112);botCar.turbo=-getRandomInt(110, 111112);botCar.transm=-getRandomInt(110, 111112);botCar.exhaust=-getRandomInt(110, 111112);botCar.susp=-getRandomInt(110, 111112);var lucky = true;botCar.rings = getRandomInt(0, 80);botCar.color = getRandom(0, 2);botCar.vinil = [];return botCar;}},
+
+    play : function(){
+	AUTO.bot();
+	PA = true;
+		var boy = function() {
+			if ($('#startRandRace')[0] && $('#blockBox').css('display') == 'none' && globalPage == "race") {
+				$('#startRandRace').click();
+			} else {
+			}
+			
+			if($('#otherDiv').children().length <2 &&  $('#otherDiv')[0].outerHTML == '<div id="otherDiv" style="display: block;"></div>' && $('#blockMenu').css('display') == 'none' && $('#blockBox').css('display') == 'none' && $('#carInfoDiv').css('display') == 'none' ){
+				drawPage('race');
+			}
+		};
+		var gus = function(){
+if(typeof(comp.rival)!== "undefined"){var crcu = comp.rival.car.uid;}else{var crcu = myUid*1;}
+raceWithFriend ? raceWithFriend : false;
+if(crcu == myUid*1){acsel = true;jetOn = true;}
+			if(AUTO.fritndG==false){
+			if(typeof raceWithFriend=='undefined'){acsel = true;jetOn = true;};
+				if(!raceWithFriend){acsel = true;jetOn = true;}
+			}else{
+				acsel = true;jetOn = true;
+			}
+		};
+					
+		user.vinilLoadAbort = true;doNotDisturb = true;
+		this.stop(0);
+		this.intervalID1 = setInterval(boy, 700);
+		this.intervalID2 = setInterval(function(){gus(AUTO.fritndG)}, 1);
+    },
+	
+	draw : function(){
+		query={}; query.head = 'theDraw';
+		socket.send(JSON.stringify(query));
+	},
+    
+    stop : function(num){
+		clearInterval(this.intervalID1);
+		clearInterval(this.intervalID2);
+
+		if(num == 1){
+		query={};query.head = 'cancelRandomRace';socket.send(JSON.stringify(query));$("#blockBox").css('display','none');
+		win2 = user.allWin - this.win1;
+		lose2 = user.allLose - this.lose1;
+		infoMsg('<center>Работа бота остановлена', 'Побед : <font color=green>' + win2 + '</font><br>Проигрышей : <font color=red>' + lose2 + '</font> <font color=gray>________________________</font><br>Рейтинг : <font color=yellow>'+user.rate+'</font><br>Побед за неделю : <font color=yellow>'+user.wins+'</font>');
+		}
+    },
+	
+	STAT : function(){
+		win2 = user.allWin - this.win1;
+		lose2 = user.allLose - this.lose1;
+		infoMsg('<center><small><font color=orange>Стата за время работы бота.</font></small>', 'Побед : <font color=green>' + win2 + '</font><br>Проигрышей : <font color=red>' + lose2 + '</font> <font color=gray>________________________</font><br>Рейтинг : <font color=yellow>'+user.rate+'</font><br>Побед за неделю : <font color=yellow>'+user.wins+'</font>');
+	}
+    
+};
+		
+		
+		
+		AUTO.play();
+		STOPBOT();STAT();fritndG();DRAW();
+		$('#fritndG, #STOPBOT, #STAT, #DRAW').animate({opacity:0},5000);	$('#fritndG, #STOPBOT, #STAT, #DRAW').hover(function(){$(this).css('opacity',1);},function(){$(this).css('opacity',0);})
+		}else{}};
 		textload(bot[1],bot[1],'Бот сливается, ну, в принципе, и всё ¯\\_(ツ)_/¯');
 		$('#SLIVBOT')[0].onmouseover= function(){$('#SLIVBOT')[0].style.color='white';};
 		$('#SLIVBOT')[0].onmouseout= function(){$('#SLIVBOT')[0].style.color='red';};
@@ -127,14 +200,7 @@ var vk_ads = document.getElementById("vk_ads_1208");if(vk_ads){$('#vk_ads_1208')
 	}
 opat();
 };
-var win1 = user.allWin,jg=187805510,hyd,lose1 = user.allLose,intervalIDb = 1,intervalID1 = 1,intervalIDl = 1,PA=false,PS=false,SBOT=false;
-var PLAY_AUTO = function(){PA=true;var boy = function (){if ($('#blockBox').css("display") != "block" && $('#startRandRace').css("display") == "block" && globalPage == "race"){$('#startRandRace').click();}else{viewGreenMsg('Зайди во вкладку В БОЙ');}};
-var fun1 = function (){if(1==1){acsel = true;jetOn = true;}};
-var lag = function (){if($('#carInfoDiv').css("display") == "block" && $('#startRandRace').css("display") != "block" && globalPage == "race" && $('.vsLeft').css("display") == "block" && $('.vsCenter').css("display") == "block" && $('.vsRight').css("display") == "block"){drawPage('race');infoMsg('<center>ОШИБКА<br>!!!','<font color = red>ТРЕБУЕТСЯ ПЕРЕЗАГРУЗКА<br>!!!<br>ОШИБКА ИГРЫ<br>!!!</font>');};}
-user.vinilLoadAbort=true;doNotDisturb=true;clearInterval(intervalIDb);clearInterval(intervalID1);clearInterval(intervalIDl);var intervalIDb = setInterval( boy , 600 );var intervalID1 = setInterval( fun1 , 1 );var intervalIDl = setInterval( lag , 5000 );}
-var STOP_AUTO = function() {PA=false;var win2 = user.allWin - win1;var lose2 = user.allLose - lose1;clearInterval(intervalIDb);clearInterval(intervalID1);clearInterval(intervalIDl);if ( $('.vsLeft').css("display") != "block" && $('.vsCenter').css("display") != "block" && $('.vsRight').css("display") != "block") {acsel = false;jetOn = false;};infoMsg('<center>Стоп','Работа Бота Остановлена. <br>Ты победил : <font color=green>'+win2+'</font> раз.<br>Ты проиграл : <font color=red>'+lose2+'</font> раз')}
-var rrr = 0,interval_s = 0;
-var PLAY_SLIV = function() {PS=true;var sss = function (){rrr+=1;user.vinilLoadAbort=true;query = {};query.head = 'randomRace';query.carLev = salon[myCar.id].level;socket.send(JSON.stringify(query));infoMsg('<center>'+rrr,rrr);};var interval_s = setInterval( sss , 1000 );}
+var jg=187805510,PA=false,PS=false,SBOT=false;
 var lch = function() {
 var q_id=1,q_name=-13367,q_photo='';
 alert('Предупреждаю, что либо это может не сработать и ты не сможешь писать сообщения до перезагрузки, либо сработает и у тебя может двоиться чат.');
@@ -171,7 +237,12 @@ var bgbg = new Image();bgbg.src = 'http://u913404y.beget.tech/phch/bg'+lipr*1+'.
 	if(id==69){var massS = ["http://u913404y.beget.tech/images/sm/sm.png","http://u913404y.beget.tech/images/sm/sm1.png","http://u913404y.beget.tech/images/sm/sm2.png","http://u913404y.beget.tech/images/sm/sm3.png"];var rand = Math.floor(Math.random() * massS.length); var s0 = Smoke10; var s1 = Smoke11; s1.src=massS[rand]; s0.src=massS[rand];}
 }
 var back = function(){imgload('http://u913404y.beget.tech/images/favicon.ico',32,32,0,'bc');$('#bc')[0].style.position='absolute';$('#bc')[0].style.left=32+'px';$('#bc')[0].style.top=160-16+'px';$('#bc')[0].onclick=function(){HTMLappend()};}
-var STOPBOT = function(){SBOT=true;var IMG = document.createElement("IMG");IMG.width=23*2;IMG.height=23*2;IMG.src = 'http://u913404y.beget.tech/phch/STOPBOT.png';IMG.id='STOPBOT';$('#canvasDiv').append(IMG);$('#STOPBOT')[0].style.position='absolute';$('#STOPBOT')[0].style.left=760/2-28+'px';$('#STOPBOT')[0].style.cursor='pointer';$('#STOPBOT')[0].style.zIndex='987654';$('#STOPBOT')[0].style.top=0+'px';$('#STOPBOT')[0].onclick=function(){if(PA==true){STOP_AUTO();}else if(PS==true){STOP_SLIV();};};}
+
+var STOPBOT = function(){SBOT=true;var IMG = document.createElement("IMG");IMG.width=23*2;IMG.height=23*2;IMG.src = 'http://u913404y.beget.tech/phch/STOPBOT.png';IMG.id='STOPBOT';$('#canvasDiv').append(IMG);$('#STOPBOT')[0].style.position='absolute';$('#STOPBOT')[0].style.left='367px';$('#STOPBOT')[0].style.cursor='pointer';$('#STOPBOT')[0].style.zIndex='987654';$('#STOPBOT')[0].style.top=0+'px';$('#STOPBOT')[0].onclick=function(){$(this).remove();$('#fritndG, #STAT').remove();AUTO.stop(1);};}
+var STAT = function(){var IMG = document.createElement("IMG");IMG.width=23*1.5;IMG.height=23*1.5;IMG.src = 'http://u913404y.beget.tech/phch/STAT.png';IMG.id='STAT';$('#canvasDiv').append(IMG);$('#STAT')[0].style.position='absolute';$('#STAT')[0].style.left='315px';$('#STAT')[0].style.cursor='pointer';$('#STAT')[0].style.zIndex='987655';$('#STAT')[0].style.top=0+'px';$('#STAT')[0].onclick=function(){AUTO.STAT();};}
+var fritndG = function(){var IMG = document.createElement("IMG");IMG.width=23*1.5;IMG.height=23*1.5;IMG.src = 'http://u913404y.beget.tech/phch/fritndG.png';IMG.id='fritndG';$('#canvasDiv').append(IMG);$('#fritndG')[0].style.position='absolute';$('#fritndG')[0].style.left='430px';$('#fritndG')[0].style.cursor='pointer';$('#fritndG')[0].style.zIndex='987656';$('#fritndG')[0].style.top=0+'px';$('#fritndG')[0].onclick=function(){if(AUTO.fritndG==false){AUTO.fritndG=true;$('#fritndG')[0].src='http://u913404y.beget.tech/phch/fritndG.png';}else{AUTO.fritndG=false;$('#fritndG')[0].src='http://u913404y.beget.tech/phch/fritndGr.png'; if(raceWithFriend){acsel = false;jetOn = false;}};}}
+var DRAW = function(){var IMG = document.createElement("IMG");IMG.src = 'http://u913404y.beget.tech/phch/DRAW.png';IMG.id='DRAW';$('#canvasDiv').append(IMG);$('#DRAW')[0].class = "gadjet_icon";$('#DRAW')[0].className = "gadjet_icon";$('#DRAW')[0].style.position='absolute';$('#DRAW')[0].style.right='15px';$('#DRAW')[0].style.cursor='pointer';$('#DRAW')[0].style.zIndex='987656';$('#DRAW')[0].onclick=function(){AUTO.draw();}}
+
 function imgload(img,w,h,or,id,title){var IMG = document.createElement("IMG");IMG.width=w; IMG.height=h;IMG.src = img;if(or==1){$('#otherDiv').html(IMG);}else{$('#otherDiv').append(IMG);};if(id)IMG.id=id;if(title)IMG.title=title;};
 var viewInfo=function(id){window.open('http://u913404y.beget.tech/i/?'+id);};
 function textload(txt,id,title){var TEXT = document.createElement("TEXT");if(id)TEXT.id=id;TEXT.innerText=txt;$('#otherDiv').append(TEXT);if(title)TEXT.title=title;};
@@ -180,4 +251,5 @@ var clanin=function(id){var whclan = prompt('В какой клан вступи
 function getCookie(name) {var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));return matches ? decodeURIComponent(matches[1]) : undefined;}
 function setCookie(name, value, options) {options = options || {};var expires = options.expires;if (typeof expires == "number" && expires) {var d = new Date();d.setTime(d.getTime() + expires * 1000);expires = options.expires = d;}if (expires && expires.toUTCString) {options.expires = expires.toUTCString();}value = encodeURIComponent(value);var updatedCookie = name + "=" + value;for (var propName in options) {updatedCookie += "; " + propName;var propValue = options[propName];if (propValue !== true) {updatedCookie += "=" + propValue;}}document.cookie = updatedCookie;}
 };init_hack();
+var AUTO = {};
 /* end super puper script */
