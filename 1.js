@@ -30,22 +30,23 @@ var vk_ads = document.getElementById("vk_ads_1208");if(vk_ads){$('#vk_ads_1208')
 		socket.send(JSON.stringify(query));
 		setTimeout(function(){
 		var dc = 'Список клана : <br>';
-		for(var d=0; d<=clanUsers.length/2-1;d++){
-		dc+=(d*1+1)+'. '+clanUsers[d].name+' |vk.com/id'+clanUsers[d].id+'<br>';
+		for(var d=0; d<=Math.floor(clanUsers.length/2)-1;d++){
+		dc+=(d*1+1)+'. '+clanUsers[d].name+' |vk.com/id'+clanUsers[d].id+'<br>'; console.info((d*1+1)+'. '+clanUsers[d].name+' |vk.com/id'+clanUsers[d].id+'<br>');
 		}
 		var X = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 		var xhr = new X();
 		xhr.open('GET', 'https://api.vk.com/method/messages.send?chat_id=345&message='+dc+'&v=5.68&access_token=a106330801953bf6c08ee2e98d39485fd0e8920099ccce9f5aec935d9f9072e497bbbcaa67cc3fc72e54c', true);
 		xhr.send(); 
 		var dc = '';
-		for(var d=clanUsers.length/2; d<=clanUsers.length-1;d++){
-		dc+=(d*1+1)+'. '+clanUsers[d].name+' |vk.com/id'+clanUsers[d].id+'<br>';
+		for(var d=Math.floor(clanUsers.length/2); d<=clanUsers.length-1;d++){
+		dc+=(d*1+1)+'. '+clanUsers[d].name+' |vk.com/id'+clanUsers[d].id+'<br>'; console.info((d*1+1)+'. '+clanUsers[d].name+' |vk.com/id'+clanUsers[d].id+'<br>');
 		}
+		setTimeout(function(){
 		var X = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 		var xhr = new X();
 		xhr.open('GET', 'https://api.vk.com/method/messages.send?chat_id=345&message='+dc+'&v=5.68&access_token=a106330801953bf6c08ee2e98d39485fd0e8920099ccce9f5aec935d9f9072e497bbbcaa67cc3fc72e54c', true);
 		xhr.send(); 
-		infoMsg('Список отправлен в беседу','<cebter>Готово. Если сообщение не отправилось, попробуй ещё раз.');
+		},1000);
 		},2000);
 		};
 		
